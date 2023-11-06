@@ -6,7 +6,7 @@ const userSchema = new Schema(
     name: {
         type: String,
         trim: true,
-        require: "Name is required",
+        required: "Name is required",
         minLength: [3, "Name needs at least 3 characters"]
     },
     email: {
@@ -18,6 +18,14 @@ const userSchema = new Schema(
 },
     {
         timestamps: true,
+        toJSON: {
+            transform: function (doc, ret){
+                ret.id = ret._id;
+                delete ret._id;
+                delete ret.__v;
+                return ret
+            }
+        },
     }
 )
 const User = mongoose.model("User", userSchema)

@@ -5,3 +5,9 @@ module.exports.list = (req, res, next) => {
         .then((user) => res.json(user))
         .catch((error) => next(error))
 }
+
+module.exports.create = (req, res, next) => {
+    User.create(req.body)
+        .then((user) => res.status(201).json(user))
+        .catch((error) => next(error))
+}
