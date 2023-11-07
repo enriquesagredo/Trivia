@@ -1,66 +1,54 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const difficulty = ["easy", "medium", "hard"];
+const categories = ["music", "sport_and_culture", "film_and_tv", 
+"arts_and_literature", "history", "society_and_culture", "science", "geography", "food_and_drink", "general_knowledge"]
 
 const questSchema = new Schema(
   {
     category: {
       type: String,
       trim: true,
-      required: "Name is required",
-      minLength: [3, "Name needs at least 3 characters"],
+      required: "Category is required",
+      enum: categories
+   
     },
     id: {
       type: String,
       trim: true,
-      required: "Name is required",
-      minLength: [3, "Name needs at least 3 characters"],
+      required: "Id is required",
     },
     tags: {
       type: Array,
-      trim: true,
-      required: "Name is required",
-      minLength: [3, "Name needs at least 3 characters"],
+      required: "Tags is required",
     },
     difficulty: {
       type: String,
-      trim: true,
-      required: "Email is required",
+      required: "Difficulty is required",
       enum: difficulty,
     },
     regions: {
       type: Array,
-      trim: true,
-      minLength: [3, "Name needs at least 3 characters"],
     },
     isNiche: {
       type: Boolean,
-      trim: true,
-      required: "Email is required",
-      minLength: [3, "Name needs at least 3 characters"],
+      required: "Niche is required",
     },
     question: {
       type: Object,
-      trim: true,
-      required: "Email is required",
-      minLength: [3, "Name needs at least 3 characters"],
+      required: "Question is required",
     },
     correctAnswer: {
       type: String,
-      trim: true,
-      required: "Email is required",
-      minLength: [3, "Name needs at least 3 characters"],
+      required: "The correct answer is required",
     },
     incorrectAnswer: {
       type: Array,
-      trim: true,
-      required: "Email is required",
-      minLength: [3, "Name needs at least 3 characters"],
+      required: "Incorrect answer is required",
     },
     type: {
       type: String,
-      trim: true,
-      required: "Email is required",
-      minLength: [3, "Name needs at least 3 characters"],
+      required: "type is required",
     },
   },
   {

@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const difficulty = ["easy", "medium", "hard"];
 
 const userSchema = new Schema(
   {
@@ -16,6 +15,10 @@ const userSchema = new Schema(
       required: "Email is required",
       minLength: [3, "Name needs at least 3 characters"],
     },
+    password: {
+        type: String,
+        required: true,
+    }
   },
   {
     timestamps: true,
