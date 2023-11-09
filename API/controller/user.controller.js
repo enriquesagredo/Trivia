@@ -1,5 +1,7 @@
 const User = require("../models/user.model");
 
+
+
 module.exports.list = (req, res, next) => {
   const { name } = req.query;
   const criterial = {};
@@ -74,6 +76,6 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.logout = (req, res, next) => {
-    req.session.destroy();
-    res.status(204).send();
-  };
+  req.session.destroy();
+  res.status(204).send();
+};

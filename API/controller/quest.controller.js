@@ -23,7 +23,7 @@ module.exports.delete = (req, res, next) => {
       if (!quest) {
         next();
       } else {
-        res.status(204).send();
+        res.status(204).json({message:"Delete complete"});
       }
     })
     .catch((error) => next(error));

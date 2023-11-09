@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const bcrypt = require("bcryptjs");
+const WORK_FACTOR = 10
+
+
 
 const userSchema = new Schema(
   {
@@ -32,5 +36,28 @@ const userSchema = new Schema(
     },
   }
 );
+
+userSchema.pre("save", function (next) {
+  const user = this;
+
+  if (user.isModified("password")) {
+    bcrypt
+      .hash(user.password, WORK_FACTOR)
+      .then((hash) => {
+        user.password = hash;
+        next();
+      })
+      .catch((error) => {
+        console.error("Password hash process failed", error);
+        next(error);
+      });
+  }
+});
+
+userSchema.methods.checkPassword = function (password) {
+  const user = this;
+  return bcrypt.compare(password, user.password);
+};
+
 const User = mongoose.model("User", userSchema);
 module.exports = User;
