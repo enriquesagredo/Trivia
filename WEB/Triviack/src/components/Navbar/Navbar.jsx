@@ -1,4 +1,4 @@
-import React from 'react'
+
 import "../Navbar/Navbar.css"
 import logo from "../../media/Triviack media/TriviackLogo.png"
 
