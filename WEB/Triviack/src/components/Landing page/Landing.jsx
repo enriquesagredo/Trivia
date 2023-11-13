@@ -1,8 +1,9 @@
-
+import Carousel from './Carousel'
 
 function Landing() {
   return (
-    <div>Landing</div>
+    <div><Carousel/></div>
+
   )
 }
 
