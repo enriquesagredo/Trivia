@@ -1,130 +1,94 @@
-import { useState, useEffect, useCallback } from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faMusic, faGlobe, faHistory } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import bgquest from "../media/Triviack media/millor.jpeg"
 
 const TriviaGame = ({ onQuestionsLoaded }) => {
-    const [questions, setQuestions] = useState([]);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [score, setScore] = useState(0);
-    const [timer, setTimer] = useState(15);
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [isCorrect, setIsCorrect] = useState(null);
-    const [gameOver, setGameOver] = useState(false);
-  
-    TriviaGame.propTypes = {
-      mode: PropTypes.string.isRequired,
-      onQuestionsLoaded: PropTypes.func.isRequired,
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
+
+  TriviaGame.propTypes = {
+    onQuestionsLoaded: PropTypes.func.isRequired,
+  };
+
+  const handleNextQuestion = useCallback(() => {
+    setSelectedOption(null);
+    setIsCorrect(null);
+
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    } else {
+      // Fin del juego, muestra la puntuación
+      setGameOver(true);
+    }
+  }, [currentQuestionIndex, questions]);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await fetch('https://the-trivia-api.com/v2/questions');
+        const data = await response.json();
+
+        if (data) {
+          setQuestions(data);
+          onQuestionsLoaded(data);
+        } else {
+          console.error('No questions found in the API response.');
+        }
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
     };
-  
-    const handleNextQuestion = useCallback(() => {
-      setSelectedOption(null);
-      setIsCorrect(null);
-      setTimer(15);
-  
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      } else {
-        // Fin del juego, muestra la puntuación
-        setGameOver(true);
-      }
-    }, [currentQuestionIndex, questions]);
-  
-    useEffect(() => {
-        const fetchQuestions = async () => {
-          try {
-            const response = await fetch('https://the-trivia-api.com/v2/questions');
-            console.log(response)
-            const data = await response.json();
-            console.log(data.question)
-            console.log(data[0].question)
-            // console.log('Questions data:', data);
-      
-            if (data) {
-              setQuestions(data[Math.floor(Math.random()*data.length)].question);
-              onQuestionsLoaded(data[Math.floor(Math.random()*data.length)].question);
-            } else {
-              console.error('No questions found in the API response.');
-            }
-          } catch (error) {
-            console.error('Error fetching questions:', error);
-          }
-        };
-      
-        fetchQuestions();
-      }, [onQuestionsLoaded]);
-  
-    useEffect(() => {
-      const timerInterval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1);
-      }, 1000);
-  
-      return () => clearInterval(timerInterval);
-    }, []);
-  
-    useEffect(() => {
-      if (timer === 0 && !selectedOption) {
-        // No hay respuesta después de 15 segundos, pasa a la siguiente pregunta
-        handleNextQuestion();
-      }
-    }, [timer, selectedOption, handleNextQuestion]);
-  
-    const handleOptionSelect = (selected) => {
-      if (selected === questions[currentQuestionIndex].correct_answer) {
-        setScore((prevScore) => prevScore + timer);
-        setIsCorrect(true);
-      } else {
-        setIsCorrect(false);
-      }
-  
-      setSelectedOption(selected);
-  
-      setTimeout(() => {
-        handleNextQuestion();
-      }, 2000);
-    };
-  
+
+    fetchQuestions();
+  }, [onQuestionsLoaded]);
+
+  const handleOptionSelect = (selected) => {
     const currentQuestion = questions[currentQuestionIndex];
-  
-    return (
-      <div className="container mt-4">
-        {currentQuestion && !gameOver && (
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">
-                {/* {categoriesIcons[currentQuestion.category]} */}
-                {currentQuestion.question}
-              </h5>
-             
-              <p className="card-text">Time Remaining: {timer} seconds</p>
-              {currentQuestion.options.map((option, index) => (
-                <div
+    const isAnswerCorrect = selected === currentQuestion.correctAnswer;
+
+    if (isAnswerCorrect) {
+      setScore((prevScore) => prevScore + 1);
+    }
+
+    setIsCorrect(isAnswerCorrect);
+    setSelectedOption(selected);
+
+    setTimeout(() => {
+      handleNextQuestion();
+    }, 2000);
+  };
+
+  const currentQuestion = questions[currentQuestionIndex];
+
+  return (
+    <div className="container mt-4">
+      {currentQuestion && !gameOver && (
+        <div className="card text-center" style={{ backgroundImage: `url(${bgquest})`, backgroundSize: 'cover', backgroundPosition: 'center', color: 'white' }}>
+          <div className="card-body">
+            <h5 className="card-title">{currentQuestion.question.text}</h5>
+            <div className="d-grid gap-2">
+              {[...currentQuestion.incorrectAnswers, currentQuestion.correctAnswer].map((option, index) => (
+                <button
                   key={index}
-                  className={`form-check ${selectedOption === option ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
+                  className={`btn btn-outline-primary ${selectedOption === option ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
+                  disabled={selectedOption !== null}
+                  onClick={() => handleOptionSelect(option)}
                 >
-                  <input
-                    type="radio"
-                    className="form-check-input"
-                    id={`option${index}`}
-                    name="answer"
-                    disabled={selectedOption !== null}
-                    onChange={() => handleOptionSelect(option)}
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor={`option${index}`}
-                  >
-                    {option}
-                  </label>
-                </div>
+                  {option}
+                </button>
               ))}
             </div>
           </div>
-        )}
-      
-        {gameOver && <div> {questions.text} Game Over! Your Score: {score}</div>}
-      </div>
-    );
-  };
-  
-  export default TriviaGame;
+        </div>
+      )}
+
+      {gameOver && <div>Game Over! Your Score: {score}</div>}
+    </div>
+  );
+};
+
+export default TriviaGame;

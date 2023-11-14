@@ -2,8 +2,8 @@
 
 
 import { useForm } from "react-hook-form";
-import { login } from "../../services/api-service";
-import { createUser, useAuthContext } from "../../contexts/auth-context";
+import { createUser, login } from "../../services/api-service";
+import { useAuthContext } from "../../context/auth-context";
 import { Link } from "react-router-dom";
 
 
