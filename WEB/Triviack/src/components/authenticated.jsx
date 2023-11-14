@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Navigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/auth-context";
+import { useAuthContext } from "../context/auth-context";
 
 export function Authenticated({ children }) {
   const { user } = useAuthContext();

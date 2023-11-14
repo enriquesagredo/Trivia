@@ -6,7 +6,7 @@ import Register from './components/Register/Register'
 import Footer from './components/Footer/Footer'
 import FastGame from './components/Pages/FastGamePage/Fastgame'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Authenticated, Unauthenticated } from './components/authenticated'
+import { Authenticated, Unauthenticated } from '../src/components/authenticated'
 import Login from './components/Login/login'
 
 function App() {
@@ -20,9 +20,9 @@ function App() {
           <Route
             path="/home"
             element={
-              <Authenticated>
+              <Unauthenticated>
                 <Landing />
-              </Authenticated>
+              </Unauthenticated>
             }
           />
           <Route
@@ -69,7 +69,7 @@ function App() {
             }
           />
 
-          <Route path="*" element={<Navigate to="/tasks" />} />
+          <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
       </div>
     </div>
