@@ -1,22 +1,38 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import { useAuthContext } from "../../context/auth-context";
+import { logoutApi } from "../../services/api-service";
+import { Offcanvas, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "../Navbar/Navbar.css";
+import logo from "../../media/Triviack/TriviackLogo.png"
 
-const Navbar = () => {
-  const location = useLocation();
+function Navbar() {
+  const { user, onLogout } = useAuthContext();
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+
+  const handleShowOffcanvas = () => setShowOffcanvas(true);
+  const handleCloseOffcanvas = () => setShowOffcanvas(false);
+
+  function logout() {
+    logoutApi().then(() => {
+      onLogout();
+    });
+  }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark navstyle">
       <div className="container-fluid">
-        {/* Logo que redirige a / */}
-        <NavLink className="navbar-brand" to="/">Logo</NavLink>
+        <NavLink to="/"> 
+        <img src={logo} width={200} alt="Logo" className="navbar-logo" />
+        </NavLink>
 
-        {/* Botón de hamburguesa para pantallas pequeñas */}
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <Button className="navbar-toggler" onClick={handleShowOffcanvas}>
           <span className="navbar-toggler-icon"></span>
-        </button>
+        </Button>
 
-        {/* Opciones centrales */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav mx-auto">
+        <ul className="navbar-nav mx-auto">
             <li className="nav-item">
               <NavLink className="nav-link" to="/fastgame" activeclassname="active">Fast Game</NavLink>
             </li>
@@ -36,11 +52,31 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Botón para hacer login o logout */}
-        <div className="d-flex">
-          {/* Aquí puedes colocar la lógica para mostrar Login o Logout en función del estado de autenticación */}
-          <button className="btn btn-light">Login/Logout</button>
-        </div>
+        {user ? (
+          <div className="d-flex">
+            <Link className="navbar-brand" onClick={handleShowOffcanvas}>
+              {user.name}
+            </Link>
+            <div>
+              <Button variant="light" onClick={logout}>Logout</Button>
+            </div>
+          </div>
+        ) : (
+          <div className="d-flex">
+            <Link to="/login">
+              <button className="btn btn-light">Login/Register</button>
+            </Link>
+          </div>
+        )}
+
+        <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} scroll={true}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Profile information</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <p>Try scrolling the rest of the page to see this option in action.</p>
+          </Offcanvas.Body>
+        </Offcanvas>
       </div>
     </nav>
   );

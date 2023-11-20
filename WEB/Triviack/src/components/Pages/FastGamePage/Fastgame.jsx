@@ -1,4 +1,4 @@
-import TriviaQuest from '../../TriviaQuest'; 
+import TriviaQuest from '../../TriviaQuestBase/TriviaQuest'; 
 
 const FastGame = () => {
 

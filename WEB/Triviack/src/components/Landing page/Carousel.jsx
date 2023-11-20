@@ -1,4 +1,4 @@
-import car1 from "../../media/Triviack media/carousel1.png"
+import car1 from "../../media/Triviack/Carousel1.png"
 
 function Carousel() {
     return (

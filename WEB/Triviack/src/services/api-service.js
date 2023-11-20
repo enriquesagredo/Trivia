@@ -26,12 +26,11 @@ const service = axios.create({
         return service.post("/login", data);
       }
 
-      export function createUser(body) {
-        const formData = new FormData();
-      
-        formData.append("name", body.name);
-        formData.append("email", body.email);
-        formData.append("password", body.password);
-      
-        return service.post("/users", formData);
+    export function createUser(body) {     
+        return service.post("/users", body);
       }
+
+    export function logoutApi() {
+      console.log("sss")
+        return service.post("/logout");
+      }  

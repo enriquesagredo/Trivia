@@ -20,9 +20,7 @@ function App() {
           <Route
             path="/home"
             element={
-              <Unauthenticated>
                 <Landing />
-              </Unauthenticated>
             }
           />
           <Route
@@ -45,20 +43,20 @@ function App() {
           <Route
             path="/fastgame"
             element={
-              <Unauthenticated>
+              <Authenticated>
                 <FastGame />
-              </Unauthenticated>
+              </Authenticated>
             }
           />
 
-          <Route
-            path="/tasks/:id/edit"
+          {/* <Route
+            path="/logout"
             element={
               <Unauthenticated>
-              <FastGame />
+              <Logout />
             </Unauthenticated>
             }
-          />
+          /> */}
 
           <Route
             path="/tasks/:id"
