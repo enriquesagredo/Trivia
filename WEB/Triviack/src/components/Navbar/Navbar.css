@@ -1,8 +1,30 @@
 .navstyle {
-    background-color: #8e1db0; 
-    padding: 10px; 
-    text-align: center; 
-}
-/* .navbar-logo {
-    height: 100%; 
-  } */
+    background-color: #8e1db0;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .navbar-nav .nav-link,
+  .navbar-nav .dropdown-toggle,
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  .navbar {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgb(227, 2, 197);
+    background: linear-gradient(to right, #641db0, #d900ff);
+  }
+  
+  .navbar-brand,
+  .nav-link {
+    color: rgb(56, 0, 84);
+    text-shadow: 0 0 10px rgba(255, 0, 220, 0.9), 0 0 20px rgba(255, 0, 220, 0.9), 0 0 30px rgba(255, 0, 220, 0.9);
+    transition: text-shadow 0.3s ease-in-out;
+  }
+  
+  .navbar-brand:hover,
+  .nav-link:hover {
+    text-shadow: 0 0 20px rgba(255, 0, 220, 0.9), 0 0 40px rgba(255, 0, 220, 0.9), 0 0 60px rgba(255, 0, 220, 0.9);
+  }

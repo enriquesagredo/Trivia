@@ -8,6 +8,8 @@ import FastGame from './components/Pages/FastGamePage/Fastgame'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Authenticated, Unauthenticated } from '../src/components/authenticated'
 import Login from './components/Login/login'
+import CompetitiveGame from './components/Pages/CompetitiveGamePage/competitiveGame'
+import CategoryGame from './components/Pages/CategoryGamePage/categoryGame'
 
 function App() {
   return (
@@ -49,21 +51,21 @@ function App() {
             }
           />
 
-          {/* <Route
-            path="/logout"
+          <Route
+            path="/categorygame"
             element={
-              <Unauthenticated>
-              <Logout />
-            </Unauthenticated>
+              <Authenticated>
+              <CategoryGame />
+            </Authenticated>
             }
-          /> */}
+          />
 
           <Route
-            path="/tasks/:id"
+            path="/competitivegame"
             element={
-              <Unauthenticated>
-              <FastGame />
-            </Unauthenticated>
+              <Authenticated>
+              <CompetitiveGame />
+            </Authenticated>
             }
           />
 

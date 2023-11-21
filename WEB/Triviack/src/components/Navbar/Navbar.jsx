@@ -37,7 +37,7 @@ function Navbar() {
               <NavLink className="nav-link" to="/fastgame" activeclassname="active">Fast Game</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/competitive-game" activeclassname="active">Competitive Game</NavLink>
+              <NavLink className="nav-link" to="/competitivegame" activeclassname="active">Competitive Game</NavLink>
             </li>
             <li className={`nav-item dropdown ${location.pathname.startsWith('/another-games') ? 'active' : ''}`}>
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,7 +46,7 @@ function Navbar() {
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><NavLink className="dropdown-item" to="/lucrative-game" activeclassname="active">Lucrative Game</NavLink></li>
                 <li><NavLink className="dropdown-item" to="/community-questions" activeclassname="active">Community questions</NavLink></li>
-                <li><NavLink className="dropdown-item" to="/section-games" activeclassname="active">Section games</NavLink></li>
+                <li><NavLink className="dropdown-item" to="/categorygame" activeclassname="active">Categories game</NavLink></li>
               </ul>
             </li>
           </ul>
@@ -54,7 +54,7 @@ function Navbar() {
 
         {user ? (
           <div className="d-flex">
-            <Link className="navbar-brand" onClick={handleShowOffcanvas}>
+            <Link className="navbar-brand nav-link" onClick={handleShowOffcanvas}>
               {user.name}
             </Link>
             <div>

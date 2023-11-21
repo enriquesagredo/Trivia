@@ -1,8 +1,35 @@
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import "../TriviaQuestBase/TriviaQuest.css"
+import "../TriviaQuestBase/TriviaQuest.css";
 
-const TriviaGame = ({ onQuestionsLoaded }) => {
+// TESTEANDO COMPONENTES FUNCIONALES
+
+const CategorySelection = ({ onSelectCategory }) => {
+  const categories = ["Music", "Sport_and_leisure", "Film_and_tv", "Arts_and_literature", "History", "Society_and_culture", "Science", "Geography", "Food_and_drink", "General_knowledge"];
+
+  return (
+    <div className="header-container mt-5">
+      <h2 className='subheader-text'>Select a Category</h2>
+      <div className="buttons-container d-grid">
+        {categories.map(category => (
+          <button
+            key={category}
+            className={`btn category-button category-${category}`}
+            onClick={() => onSelectCategory(category)}
+          >
+            {category.replace(/_/g, ' ')}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+CategorySelection.propTypes = {
+  onSelectCategory: PropTypes.func.isRequired,
+};
+
+const TriviaGameCat = ({ selectedCategory, onQuestionsLoaded }) => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -11,10 +38,11 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
   const [isCorrect, setIsCorrect] = useState(null);
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const [gameOver, setGameOver] = useState(false);
-  const [questionsLoaded, setQuestionsLoaded] = useState(false);
+  const [questionsLoaded, setQuestionsLoaded] = useState(false);    
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
 
-  TriviaGame.propTypes = {
+  TriviaGameCat.propTypes = {
+    selectedCategory: PropTypes.string,
     onQuestionsLoaded: PropTypes.func.isRequired,
   };
 
@@ -31,25 +59,27 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
   }, [currentQuestionIndex, questions]);
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await fetch('https://the-trivia-api.com/v2/questions');
-        const data = await response.json();
+    if (selectedCategory) {
+      const fetchQuestions = async () => {
+        try {
+          const response = await fetch(`https://the-trivia-api.com/v2/questions?Category=${selectedCategory}`);
+          const data = await response.json();
 
-        if (data) {
-          setQuestions(data);
-          onQuestionsLoaded(data);
-          setQuestionsLoaded(true);
-        } else {
-          console.error('No questions found in the API response.');
+          if (data) {
+            setQuestions(data);
+            onQuestionsLoaded(data);
+            setQuestionsLoaded(true);
+          } else {
+            console.error('No questions found in the API response.');
+          }
+        } catch (error) {
+          console.error('Error fetching questions:', error);
         }
-      } catch (error) {
-        console.error('Error fetching questions:', error);
-      }
-    };
+      };
 
-    fetchQuestions();
-  }, [onQuestionsLoaded]);
+      fetchQuestions();
+    }
+  }, [onQuestionsLoaded, selectedCategory]);
 
   useEffect(() => {
     if (questionsLoaded) {
@@ -66,11 +96,9 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
     const isAnswerCorrect = selected === currentQuestion.correctAnswer;
 
     if (isAnswerCorrect) {
-
       setScore((prevScore) => prevScore + 2);
     } else {
-
-      setScore((prevScore) => prevScore - 1);
+      setScore((prevScore) => Math.max(prevScore - 1, 0));
     }
 
     setIsCorrect(isAnswerCorrect);
@@ -85,12 +113,14 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
 
   const currentQuestion = questions[currentQuestionIndex];
 
-  if (!questionsLoaded) {
-    return <div>Loading...</div>;
+  if (!questionsLoaded || !selectedCategory) {
+    return <CategorySelection onSelectCategory={(category) => onSelectCategory(category)} />;
   }
 
   return (
     <div className="container mt-4">
+      <div className="score">Score: {score}</div>
+
       {currentQuestion && !gameOver && (
         <div className="card text-center bg">
           <div className="card-body">
@@ -117,4 +147,4 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
   );
 };
 
-export default TriviaGame;
+export default TriviaGameCat;

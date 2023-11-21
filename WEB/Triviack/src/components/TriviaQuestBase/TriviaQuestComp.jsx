@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import "../TriviaQuestBase/TriviaQuest.css"
+import "../TriviaQuestBase/TriviaQuest.css";
 
-const TriviaGame = ({ onQuestionsLoaded }) => {
+
+const TriviaGameComp = ({ onQuestionsLoaded }) => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -14,7 +15,7 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
   const [questionsLoaded, setQuestionsLoaded] = useState(false);
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
 
-  TriviaGame.propTypes = {
+  TriviaGameComp.propTypes = {
     onQuestionsLoaded: PropTypes.func.isRequired,
   };
 
@@ -66,11 +67,9 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
     const isAnswerCorrect = selected === currentQuestion.correctAnswer;
 
     if (isAnswerCorrect) {
-
       setScore((prevScore) => prevScore + 2);
     } else {
-
-      setScore((prevScore) => prevScore - 1);
+      setScore((prevScore) => Math.max(prevScore - 1, 0));
     }
 
     setIsCorrect(isAnswerCorrect);
@@ -91,8 +90,10 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
 
   return (
     <div className="container mt-4">
+      <div className="score subheader-text">Score: {score}</div>
+
       {currentQuestion && !gameOver && (
-        <div className="card text-center bg">
+        <div className="card text-center bg mt-5">
           <div className="card-body">
             <h5 className="card-title">{currentQuestion.question.text}</h5>
 
@@ -117,4 +118,4 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
   );
 };
 
-export default TriviaGame;
+export default TriviaGameComp;
