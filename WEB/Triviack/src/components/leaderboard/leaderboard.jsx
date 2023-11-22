@@ -14,13 +14,17 @@ const Leaderboard = () => {
     useEffect(() => {
         getLeaderboardApi().then((data) => {
             console.log(data);
-            setLeaderboard(data);
+            // Ordenar el array por puntos de mayor a menor
+            const sortedData = data.sort((a, b) => b.points - a.points);
+            setLeaderboard(sortedData);
         });
     }, []);
 
     const generateRandomLeaderboard = () => {
         const randomUsers = Array.from({ length: 10 }, () => generateRandomUser());
-        setLeaderboard(randomUsers);
+        // Ordenar el array por puntos de mayor a menor
+        const sortedData = randomUsers.sort((a, b) => b.points - a.points);
+        setLeaderboard(sortedData);
     };
 
     return (
@@ -38,7 +42,7 @@ const Leaderboard = () => {
                     <h2>LOADING</h2>
                 )}
             </ul>
-            <button onClick={generateRandomLeaderboard}>Generate Random Leaderboard</button>
+            <button onClick={generateRandomLeaderboard}>Leaderboard</button>
         </div>
     );
 };
