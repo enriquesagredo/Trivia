@@ -91,6 +91,7 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
 
   return (
     <div className="container mt-4">
+      <h1 className='card-title'>^^ A game to enjoy and learn ^^</h1>
       {currentQuestion && !gameOver && (
         <div className="card text-center bg">
           <div className="card-body">
@@ -112,7 +113,7 @@ const TriviaGame = ({ onQuestionsLoaded }) => {
         </div>
       )}
 
-      {gameOver && <div>Game Finished! Your Score: {score}</div>}
+      {gameOver && <div className='subheader-text'> Game Finished! We hope u learn something! :D {score}</div>}
     </div>
   );
 };

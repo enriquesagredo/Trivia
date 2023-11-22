@@ -86,66 +86,87 @@
   box-shadow: 0 0 19px rgba(247, 0, 235, 0.855); 
 }
 
+.card-title {
+  font-size: 1.5rem; 
+  font-weight: bold;
+  color: #ffffff; 
+  text-shadow: 0 0 10px rgba(255, 102, 178, 0.9), 0 0 20px rgba(255, 102, 178, 0.9), 0 0 30px rgba(255, 102, 178, 0.9);
+  transition: text-shadow 0.3s ease-in-out;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.card-body button {
+  font-size: 18px; 
+  font-weight: bold;
+  color: rgb(255, 0, 238);
+  text-shadow:
+    -1px -1px 0 #ffffff,
+     1px -1px 0 #fcfcfc,
+    -1px  1px 0 #ffffff,
+     1px  1px 0 #ffffff; 
+}
 
 
 /* Categorias y colores */
-.category-Music {
+.category-music {
   background-color: #ff66b2;
   color: #ffffff;
   border-color: #ff66b2;
 }
 
-.category-Sport_and_leisure {
+.category-sport_and_leisure {
   background-color: #194d85;
   color: #ffffff;
   border-color: #66b3ff;
 }
 
-.category-Film_and_tv {
+.category-film_and_tv {
   
   background-color: #ff6666;
   color: #ffffff;
   border-color: #ff6666;
 }
 
-.category-Arts_and_literature {
+.category-arts_and_literature {
   background-color: #66ff66;
   color: #ffffff;
   border-color: #66ff66;
 }
 
-.category-History {
+.category-history {
   background-color: #ffcc66;
   color: #ffffff;
   border-color: #ffcc66;
 }
 
-.category-Society_and_culture {
+.category-society_and_culture {
   grid-column: 2;
   background-color: #66ffe0;
   color: #ffffff;
   border-color: #66ffe0;
 }
 
-.category-Science {
+.category-science {
   background-color: #668cff;
   color: #ffffff;
   border-color: #668cff;
 }
 
-.category-Geography {
+.category-geography {
   background-color: #e08216;
   color: #ffffff;
   border-color: #ff9999;
 }
 
-.category-Food_and_drink {
+.category-food_and_drink {
   background-color: #99ff99;
   color: #ffffff;
   border-color: #99ff99;
 }
 
-.category-General_knowledge {
+.category-general_knowledge {
   background-color: #ffdb4d;
   color: #ffffff;
   border-color: #ffdb4d;

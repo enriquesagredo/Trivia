@@ -6,6 +6,7 @@ import { Offcanvas, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../Navbar/Navbar.css";
 import logo from "../../media/Triviack/TriviackLogo.png"
+import Leaderboard from "../leaderboard/leaderboard"
 
 function Navbar() {
   const { user, onLogout } = useAuthContext();
@@ -75,6 +76,7 @@ function Navbar() {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <p>Try scrolling the rest of the page to see this option in action.</p>
+            <Leaderboard />
           </Offcanvas.Body>
         </Offcanvas>
       </div>

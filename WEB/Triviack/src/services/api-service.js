@@ -34,3 +34,7 @@ const service = axios.create({
       console.log("sss")
         return service.post("/logout");
       }  
+
+    export function getLeaderboardApi() {
+        return service.get('/leaderboard');
+      }

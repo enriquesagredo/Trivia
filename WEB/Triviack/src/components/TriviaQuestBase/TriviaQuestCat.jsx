@@ -1,11 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import "../TriviaQuestBase/TriviaQuest.css";
-
-// TESTEANDO COMPONENTES FUNCIONALES
+import "./categoryselection";
 
 const CategorySelection = ({ onSelectCategory }) => {
-  const categories = ["Music", "Sport_and_leisure", "Film_and_tv", "Arts_and_literature", "History", "Society_and_culture", "Science", "Geography", "Food_and_drink", "General_knowledge"];
+  const categories = ["music", "sport_and_leisure", "film_and_tv", "arts_and_literature", "history", "society_and_culture", "science", "geography", "food_and_drink", "general_knowledge"];
 
   return (
     <div className="header-container mt-5">
@@ -16,6 +15,7 @@ const CategorySelection = ({ onSelectCategory }) => {
             key={category}
             className={`btn category-button category-${category}`}
             onClick={() => onSelectCategory(category)}
+            style={{ textTransform: 'capitalize' }}
           >
             {category.replace(/_/g, ' ')}
           </button>
@@ -29,9 +29,12 @@ CategorySelection.propTypes = {
   onSelectCategory: PropTypes.func.isRequired,
 };
 
-const TriviaGameCat = ({ selectedCategory, onQuestionsLoaded }) => {
+const TriviaGameCat = ({ onQuestionsLoaded }) => {
+  // eslint-disable-next-line no-unused-vars
+  const categories = ["music", "sport_and_leisure", "film_and_tv", "arts_and_literature", "history", "society_and_culture", "science", "geography", "food_and_drink", "general_knowledge"];
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [score, setScore] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   // eslint-disable-next-line no-unused-vars
@@ -40,6 +43,8 @@ const TriviaGameCat = ({ selectedCategory, onQuestionsLoaded }) => {
   const [gameOver, setGameOver] = useState(false);
   const [questionsLoaded, setQuestionsLoaded] = useState(false);    
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   TriviaGameCat.propTypes = {
     selectedCategory: PropTypes.string,
@@ -60,12 +65,14 @@ const TriviaGameCat = ({ selectedCategory, onQuestionsLoaded }) => {
 
   useEffect(() => {
     if (selectedCategory) {
+      console.log(selectedCategory);
       const fetchQuestions = async () => {
         try {
-          const response = await fetch(`https://the-trivia-api.com/v2/questions?Category=${selectedCategory}`);
+          const response = await fetch(`https://the-trivia-api.com/v2/questions?categories=${selectedCategory}`);
           const data = await response.json();
-
+  
           if (data) {
+            console.log(data);
             setQuestions(data);
             onQuestionsLoaded(data);
             setQuestionsLoaded(true);
@@ -76,7 +83,7 @@ const TriviaGameCat = ({ selectedCategory, onQuestionsLoaded }) => {
           console.error('Error fetching questions:', error);
         }
       };
-
+  
       fetchQuestions();
     }
   }, [onQuestionsLoaded, selectedCategory]);
@@ -113,36 +120,36 @@ const TriviaGameCat = ({ selectedCategory, onQuestionsLoaded }) => {
 
   const currentQuestion = questions[currentQuestionIndex];
 
-  if (!questionsLoaded || !selectedCategory) {
-    return <CategorySelection onSelectCategory={(category) => onSelectCategory(category)} />;
-  }
-
   return (
-    <div className="container mt-4">
-      <div className="score">Score: {score}</div>
+    <div>
+      {selectedCategory ? (
+        <div className="container mt-4">
+          {currentQuestion && !gameOver && (
+            <div className="card text-center bg">
+              <div className="card-body">
+                <h5 className="card-title">{currentQuestion.question.text}</h5>
 
-      {currentQuestion && !gameOver && (
-        <div className="card text-center bg">
-          <div className="card-body">
-            <h5 className="card-title">{currentQuestion.question.text}</h5>
-
-            <div className="d-grid gap-2">
-              {shuffledAnswers.map((option, index) => (
-                <button
-                  key={index}
-                  className={`btn ${correctAnswers.includes(option) ? 'btn-success' : (selectedOption === option ? 'btn-danger' : 'btn-outline-primary')}`}
-                  disabled={selectedOption !== null}
-                  onClick={() => handleOptionSelect(option)}
-                >
-                  {option}
-                </button>
-              ))}
+                <div className="d-grid gap-2">
+                  {shuffledAnswers.map((option, index) => (
+                    <button
+                      key={index}
+                      className={`btn ${correctAnswers.includes(option) ? 'btn-success' : (selectedOption === option ? 'btn-danger' : 'btn-outline-primary')}`}
+                      disabled={selectedOption !== null}
+                      onClick={() => handleOptionSelect(option)}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          )}
 
-      {gameOver && <div>Game Finished! Your Score: {score}</div>}
+          {gameOver && <div className='subheader-text'> Game Finished! I hope you enjoyed our round of questions by category! </div>}
+        </div>
+      ) : (
+        <CategorySelection onSelectCategory={setSelectedCategory} />
+      )}
     </div>
   );
 };

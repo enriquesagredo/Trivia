@@ -8,10 +8,8 @@ function Landing() {
   return (
     <div>
       {user ? (
-        // Si hay un usuario logeado, muestra el Carousel
         <Carousel />
       ) : (
-        // Si no hay usuario logeado, muestra el video
         <video width="100%" height="500" autoPlay loop muted>
           <source src={logo} type="video/mp4" />
           Tu navegador no soporta el elemento de video.

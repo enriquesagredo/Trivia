@@ -14,12 +14,6 @@ module.exports.list = (req, res, next) => {
     .catch((error) => next(error));
 };
 
-// module.exports.create = (req, res, next) => {
-//   User.create(req.body)
-//     .then((user) => res.status(201).json(user))
-//     .catch((error) => next(error));
-// };
-
 module.exports.create = (req, res, next) => {
   User.create({
     email: req.body.email,

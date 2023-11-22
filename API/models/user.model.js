@@ -13,15 +13,21 @@ const userSchema = new Schema(
       required: "Name is required",
       minLength: [3, "Name needs at least 3 characters"],
     },
+    
     email: {
       type: String,
       trim: true,
       required: "Email is required",
       minLength: [3, "Name needs at least 3 characters"],
     },
+
     password: {
         type: String,
         required: true,
+    },
+
+    score: {
+        type: Number,
     }
   },
   {

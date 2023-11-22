@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const users = require("../controller/user.controller");
 const quests = require("../controller/quest.controller");
+const leaderboardController = require('../controller/leaderboard.controller');
+
 
 router.post("/users", users.create);
 router.post("/login", users.login);
@@ -14,5 +16,7 @@ router.get("/quests", quests.list);
 router.post("/quests", quests.create);
 router.delete("/quests/:id", quests.delete);
 router.get("/quests/:id", quests.detail);
+
+router.get('/leaderboard', leaderboardController.userscores);
 
 module.exports = router;
