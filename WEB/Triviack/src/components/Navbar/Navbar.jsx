@@ -72,10 +72,10 @@ function Navbar() {
 
         <Offcanvas show={showOffcanvas} onHide={handleCloseOffcanvas} scroll={true}>
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Profile information</Offcanvas.Title>
+            <Offcanvas.Title></Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            <p>Try scrolling the rest of the page to see this option in action.</p>
+            <p></p>
             <Leaderboard />
           </Offcanvas.Body>
         </Offcanvas>

@@ -1,6 +1,7 @@
 import { useAuthContext } from "../../context/auth-context";
 import Carousel from './Carousel';
 import logo from "../../media/Triviack/logo.mp4";
+import "../Landing page/Landing.css"
 
 function Landing() {
   const { user } = useAuthContext();

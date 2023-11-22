@@ -1,9 +1,9 @@
-import "../Footer/footer.css"
+import "../Footer/footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer-container text-light text-center py-4">
-      <div className="footer-container">
+      <div className="container">
         <div className="row">
           <div className="col">
             <h5>About Me</h5>

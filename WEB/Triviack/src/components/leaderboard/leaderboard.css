@@ -1,0 +1,38 @@
+.leaderboard-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #8e1db0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgb(227, 2, 197);
+  }
+  
+  .leaderboard-title {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .leaderboard-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .leaderboard-item {
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .leaderboard-username {
+    font-weight: bold;
+  }
+  
+  .leaderboard-points {
+    color: #8e1db0;
+    font-weight: bold;
+  }

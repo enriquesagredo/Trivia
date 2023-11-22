@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { login } from "../../services/api-service";
 import { useAuthContext } from "../../context/auth-context";
 import { Link } from "react-router-dom";
-
+import "./login.css"; // Asegúrate de importar el archivo CSS
 
 function Login() {
   const { register, handleSubmit } = useForm();
@@ -16,15 +16,12 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="login-container">
       <h1>Login</h1>
 
-      <form onSubmit={handleSubmit(handleLogin)}>
+      <form className="login-form" onSubmit={handleSubmit(handleLogin)}>
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-
+          <label htmlFor="email">Email address</label>
           <input
             type="email"
             className="form-control"
@@ -34,14 +31,12 @@ function Login() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label>
+          <label htmlFor="password">Password</label>
           <input
             {...register("password")}
             type="password"
             className="form-control"
-            id="exampleInputPassword1"
+            id="password"
           />
         </div>
 
@@ -57,5 +52,4 @@ function Login() {
   );
 }
 
-
-export default Login
+export default Login;

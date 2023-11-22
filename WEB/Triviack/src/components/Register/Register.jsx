@@ -1,11 +1,8 @@
-
-
-
 import { useForm } from "react-hook-form";
 import { createUser, login } from "../../services/api-service";
 import { useAuthContext } from "../../context/auth-context";
 import { Link } from "react-router-dom";
-
+import "../Register/register.css"
 
 function Register() {
   const { register, handleSubmit } = useForm();
@@ -19,45 +16,37 @@ function Register() {
   }
 
   return (
-    <div>
+    <div className="register-container">
       <h1>Sign Up</h1>
 
-      <form onSubmit={handleSubmit(handleRegister)}>
+      <form className="register-form" onSubmit={handleSubmit(handleRegister)}>
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-            Name
-          </label>
-
+          <label htmlFor="name">Name</label>
           <input
             type="text"
             className="form-control"
             id="name"
-            {...register("name")}
+            {...register("name", { required: true })}
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-
+          <label htmlFor="email">Email address</label>
           <input
             type="email"
             className="form-control"
             id="email"
-            {...register("email")}
+            {...register("email", { required: true })}
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Here your password
-          </label>
+          <label htmlFor="password">Password</label>
           <input
-            {...register("password")}
+            {...register("password", { required: true })}
             type="password"
             className="form-control"
-            id="exampleInputPassword1"
+            id="password"
           />
         </div>
 
@@ -72,4 +61,5 @@ function Register() {
     </div>
   );
 }
-export default Register
+
+export default Register;

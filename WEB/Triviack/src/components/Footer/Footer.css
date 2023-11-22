@@ -3,11 +3,14 @@
     padding: 20px 0;
     text-align: center;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgb(227, 2, 197), 0 0 20px rgba(255, 255, 255, 0.5) inset;
+    box-shadow: 0 4px 6px rgb(227, 2, 197);
     background: linear-gradient(to right, #641db0, #d900ff);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
   
-  .footer-container h5 {
+.footer-container h5 {
     font-weight: bold;
     font-size: 1.1rem;
     color: rgb(56, 0, 84);
@@ -15,10 +18,10 @@
     transition: text-shadow 0.3s ease-in-out;
   }
   
-  .footer-container h5:hover {
+.footer-container h5:hover {
     text-shadow: 0 0 20px rgba(255, 0, 220, 0.9), 0 0 40px rgba(255, 0, 220, 0.9), 0 0 60px rgba(255, 0, 220, 0.9);
   }
   
-  .footer-container p {
+.footer-container p {
     color: rgb(56, 0, 84);
   }

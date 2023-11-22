@@ -1,4 +1,7 @@
-import car1 from "../../media/Triviack/Carousel1.png"
+import car3 from "../../media/Triviack/Carousel1.png"
+import car1 from "../../media/Triviack/Car1.png"
+import car2 from "../../media/Triviack/Car2.png"
+
 
 function Carousel() {
     return (
@@ -8,10 +11,10 @@ function Carousel() {
       <img src={car1} className="d-block w-100" alt="..."/>
     </div>
     <div className="carousel-item">
-      <img src="..." className="d-block w-100" alt="..."/>
+      <img src={car2} className="d-block w-100" alt="..."/>
     </div>
     <div className="carousel-item">
-      <img src="..." className="d-block w-100" alt="..."/>
+      <img src={car3} className="d-block w-100" alt="..."/>
     </div>
   </div>
   <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
