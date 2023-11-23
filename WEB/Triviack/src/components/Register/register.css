@@ -4,8 +4,8 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgb(227, 2, 197);
     background: linear-gradient(to right, #641db0, #d900ff);
-    margin: 20px auto;  /* Ajusta según sea necesario */
-    max-width: 400px;  /* Ajusta según sea necesario */
+    margin: 20px auto; 
+    max-width: 400px;  
   }
   
   .register-form {

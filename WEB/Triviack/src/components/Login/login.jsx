@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { login } from "../../services/api-service";
 import { useAuthContext } from "../../context/auth-context";
 import { Link } from "react-router-dom";
-import "./login.css"; // Asegúrate de importar el archivo CSS
+import "./login.css";
 
 function Login() {
   const { register, handleSubmit } = useForm();

@@ -14,7 +14,6 @@ const Leaderboard = () => {
     useEffect(() => {
         getLeaderboardApi().then((data) => {
             console.log(data);
-            // Ordenar el array por puntos de mayor a menor
             const sortedData = data.sort((a, b) => b.points - a.points);
             setLeaderboard(sortedData);
         });
@@ -22,7 +21,6 @@ const Leaderboard = () => {
 
     const generateRandomLeaderboard = () => {
         const randomUsers = Array.from({ length: 10 }, () => generateRandomUser());
-        // Ordenar el array por puntos de mayor a menor
         const sortedData = randomUsers.sort((a, b) => b.points - a.points);
         setLeaderboard(sortedData);
     };
